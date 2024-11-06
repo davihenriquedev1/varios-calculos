@@ -49,7 +49,13 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			'color-palette1': '#813CF0', 
+        	'color-palette2': '#F03CE1', 
+        	'color-palette3': '#BD3CF0',
+        	'color-palette4': '#483CF0',
+        	'color-palette5': '#F03C75', 
+			'color-palette6': '#D38BF0'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
