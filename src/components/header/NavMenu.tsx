@@ -33,7 +33,7 @@ const NavMenu = () => {
                             active: pathname === "/donate",
                             })}
                         > 
-                            Doe
+                            Donate
                         </NavigationMenuLink>
                     </Link>
                 </NavigationMenuItem>
@@ -44,7 +44,7 @@ const NavMenu = () => {
                             active: pathname === "/about",
                             })}
                         >                        
-                            Sobre nós
+                            About us
                         </NavigationMenuLink>
                     </Link>
                 </NavigationMenuItem>
