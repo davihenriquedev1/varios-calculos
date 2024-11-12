@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: 'Vários Cálculos'
   },
   description: "Um site com diversas calculadoras úteis, incluindo calculadora IMC, de investimentos e científica. Acesse agora e facilite seus cálculos!",
-};
+};  
 
 export default function RootLayout({
   children,
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`antialiased`}
+        className="antialiased"
       >
         <ThemeProvider
             attribute="class"
@@ -28,9 +28,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-          <Header/>
-          {children}
-          <Footer/>
+          <div className="container m-auto">
+            <Header/>
+            {children}
+            <Footer/>
+          </div>
         </ThemeProvider>
       </body>
     </html>

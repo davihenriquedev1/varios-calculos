@@ -13,7 +13,7 @@ export const SideBar = () => {
     return (
         <Sheet>
             <SheetTrigger className="pr-3 border-r border-white/40"> <MenuIcon /> </SheetTrigger>
-            <SheetContent className="w-[400px] sm:w-[540px]" side={"left"}>
+            <SheetContent className="w-[170px] sm:w-[300px]" side={"left"}>
                 <SheetHeader>
                     <SheetTitle>Calculators</SheetTitle>
                 </SheetHeader>
