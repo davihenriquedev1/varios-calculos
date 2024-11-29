@@ -6,7 +6,7 @@ import { SideBar } from "../sidebar/Sidebar";
 const Header = () => {
     return (
         <header className="">
-            <div className="flex justify-between items-center px-4 py-1 bg-color-palette1 ">
+            <div className="flex justify-between items-center px-4 py-1 bg-color-palette1/50 ">
                 <div className="flex">
                     <SideBar/>
                     <Logo/>

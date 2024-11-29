@@ -92,6 +92,21 @@ const config: Config = {
 				'bottom-left-sm': '-1px 1px 2px var(--tw-shadow-color)',
 				'bottom-left-lg': '-8px 8px 16px var(--tw-shadow-color)',
 			},
+		},
+		screens: {
+			'xs': '360px', // => @media (min-width: 420px) { ... }
+
+			'sm': '640px',
+			// => @media (min-width: 640px) { ... }
+	  
+			'md': '768px',
+			// => @media (min-width: 768px) { ... }
+	  
+			'lg': '1024px',
+			// => @media (min-width: 1024px) { ... }
+	  
+			'xl': '1280px',
+			// => @media (min-width: 1280px) { ... }
 		}
 	},
   	plugins: [

@@ -4,7 +4,7 @@ import { ConectUs } from "@/components/footer/ConectUs";
 
 export const Footer = () => {
     return (
-        <footer className="flex bg-color-palette4/30 bottom-0 py-6 px-14 items-center">
+        <footer className="flex flex-col xs:grid xs:grid-cols-2 gap-8 items-center xs:items-start md:flex md:flex-row bg-color-palette4/20 bottom-0 p-6 md:p-14 ">
             <ConectUs/>
             <Brand/>
             <UsefulLinks/>

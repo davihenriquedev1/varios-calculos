@@ -28,7 +28,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-          <div className="container m-auto">
+          <div className="m-auto">
             <Header/>
             {children}
             <Footer/>
