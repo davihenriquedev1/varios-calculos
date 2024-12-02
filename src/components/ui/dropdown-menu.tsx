@@ -3,8 +3,10 @@
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { Check, ChevronRight, Circle } from "lucide-react"
+import { cva } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 
@@ -91,6 +93,18 @@ const DropdownMenuItem = React.forwardRef<
   />
 ))
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName
+
+const dropDownMenuLinkStyle = cva(
+  "h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-bold transition-colors disabled:pointer-events-none disabled:bg-accent/40",
+  {
+    variants: {
+      active: {
+        true: "bg-foreground text-background focus:outline-none hover:opacity-95 focus:bg-foreground/90 focus:text-background/80",
+        false: "hover:bg-accent/50 hover:text-accent-foreground"
+      },
+    },
+  }
+);
 
 const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
@@ -197,4 +211,5 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
+  dropDownMenuLinkStyle
 }
