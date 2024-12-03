@@ -52,11 +52,11 @@ const config: Config = {
 					'5': 'hsl(var(--chart-5))'
 				},
 				'color-palette1': '#813CF0', 
-				'color-palette2': '#F03CE1', 
+				'color-palette2': '#A11FCC', 
 				'color-palette3': '#BD3CF0',
 				'color-palette4': '#483CF0',
-				'color-palette5': '#F03C75', 
-				'color-palette6': '#D38BF0'
+				'color-palette5': '#2E1F33', 
+				'color-palette6': '#180038'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
