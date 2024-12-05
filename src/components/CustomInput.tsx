@@ -7,10 +7,10 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
-import { Control } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 
 type Props = {
-    control: Control<any>;
+    form: UseFormReturn<any>;
     name:string,
     label?:string,
     placeholder?:string,
@@ -18,8 +18,10 @@ type Props = {
     type:string;
 }
 
-export const CustomInput = ({control, name, label, placeholder, description, type}:Props) => {
-   
+export const CustomInput = ({form, name, label, placeholder, description, type}:Props) => {
+
+    const { register, control } = form;
+
     return (
         <FormField
           control={control}
@@ -31,8 +33,8 @@ export const CustomInput = ({control, name, label, placeholder, description, typ
                     <Input
                         {...field}
                         type={type}
-                        placeholder={placeholder} 
-                        />
+                        placeholder={placeholder}
+                    />
                 </FormControl>
                 <FormDescription>
                     {description}
