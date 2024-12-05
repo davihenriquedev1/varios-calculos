@@ -7,20 +7,32 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
+import { ChangeEvent } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 type Props = {
-    form: UseFormReturn<any>;
+    form: UseFormReturn<any>,
     name:string,
     label?:string,
     placeholder?:string,
-    description?:string
-    type:string;
+    description?:string,
+    type:string,
+    mask?:(...args:any)=>string
 }
 
-export const CustomInput = ({form, name, label, placeholder, description, type}:Props) => {
+export const CustomInput = ({form, name, label, placeholder, description, type, mask}:Props) => {
 
-    const { register, control } = form;
+    const { control, setValue } = form;
+
+    const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
+        if(mask) {
+            const value = e.target.value;
+            const maskedValue = mask(value);
+            setValue(name, maskedValue);
+        } else {
+            setValue(name, e.target.value);
+        }
+    }
 
     return (
         <FormField
@@ -34,6 +46,7 @@ export const CustomInput = ({form, name, label, placeholder, description, type}:
                         {...field}
                         type={type}
                         placeholder={placeholder}
+                        onChange={handleChange}
                     />
                 </FormControl>
                 <FormDescription>

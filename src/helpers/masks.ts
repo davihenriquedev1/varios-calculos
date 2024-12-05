@@ -1,22 +1,29 @@
-export const maskFloat = (value:string, dotPos?:number, maxIntDgt?:number) => {
-    let polish = value;
+export const maskFloat = (maxIntDgts?:number) => {
+    
+    return (value:any) => {
 
-    if(/^\d+$/.test(value)) {
+        // Caso o valor seja apenas números inteiros
+        if(/^\d+$/.test(value)) {
 
-        if(dotPos) {
-            polish = polish.slice(0, dotPos) + '.' + polish.slice(dotPos);
+            // Verifica se o valor excede o limite de inteiros
+            if(maxIntDgts && value.length > maxIntDgts) {
+                const intPart = value.slice(0, maxIntDgts); // Parte inteira limitada
+                const decimalPart = value.slice(maxIntDgts); // Limita a parte decimal a 2 dígitos
+                value = `${intPart}.${decimalPart}`; // Retorna o valor formatado com ponto
+            }
+            return value;
+
+        } else { // se for uma string
+
+            // Verifica se o valor excede o limite de caracteres permitidos
+            if(maxIntDgts && value.length > maxIntDgts + 3) {
+                return value.slice(0, maxIntDgts + 3); // mantém a quantidade máxima de caracteres no input
+            }
+
+            return value
+                .replace(/[^0-9,\.]/g, '') // Remove qualquer caractere que não seja número, vírgula ou ponto
+                .replace(',', '.') // Substitui a vírgula por ponto
+                .replace(/\.(?=.*\.)/g, '') // Remove todos os pontos extras, mantendo apenas o primeiro.
         }
-
-        if(maxIntDgt && parseInt(polish) > maxIntDgt) {
-            polish = polish.slice(0, maxIntDgt) + '.' + polish.slice(maxIntDgt);
-        }
-
-        return parseFloat(polish).toFixed(2)
     }
-    /*
-    const floatInAmericanFormat = value.replace(/[^0-9,\.]/g, '').replace(',', '.');
-    const formattedDecimal = parseFloat((floatInAmericanFormat)).toFixed(2);
-
-    return formattedDecimal;
-    */
 }
