@@ -17,24 +17,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className="antialiased"
-      >
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-          <div className="m-auto">
-            <Header/>
-            {children}
-            <Footer/>
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en" suppressHydrationWarning>
+		<body
+			className="antialiased"
+		>
+			<ThemeProvider
+				attribute="class"
+				defaultTheme="system"
+				enableSystem
+				disableTransitionOnChange
+			>
+				<Header/>
+				{children}
+				<Footer/>
+			</ThemeProvider>
+		</body>
+		</html>
+	);
 }
