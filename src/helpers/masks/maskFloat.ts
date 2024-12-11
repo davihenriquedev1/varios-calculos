@@ -1,12 +1,12 @@
 export const maskFloat = (maxIntDgts?:number) => {
     
-    return (value:any) => {
+    return (value:string) => {
 
         // Caso o valor seja apenas números inteiros
         if(/^\d+$/.test(value)) {
 
             // Verifica se o valor excede o limite de inteiros
-            if(maxIntDgts && value.length > maxIntDgts) {
+            if(maxIntDgts !== undefined && value.length > maxIntDgts) {
                 const intPart = value.slice(0, maxIntDgts); // Parte inteira com base no limite de inteiros
                 const decimalPart = value.slice(maxIntDgts); // pega a parte que será a decimal (depois do index do número limitador de inteiros em diante)
                 value = `${intPart}.${decimalPart}`; // Retorna o valor formatando com ponto entre as partes inteira e decimal
