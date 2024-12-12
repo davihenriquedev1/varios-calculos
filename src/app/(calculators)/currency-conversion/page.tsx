@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { CustomInput } from "@/components/CustomInput";
 import { useEffect, useState } from "react";
 import { CustomSelect } from "@/components/CustomSelect";
-import { maskFloat } from "@/helpers/masks/maskFloat";
+import { maskNumberInput } from "@/helpers/masks/maskNumberInput";
 
 const formSchema = z.object({
     value: z.string().min(1, 'preencha o valor').transform((value) => parseFloat(value).toFixed(2)),
@@ -29,12 +29,11 @@ const Page = () => {
     const { handleSubmit } = form;
 
     function onSubmit(values: FormValues) {
-        console.log(values.value)
-        
+        console.log(values)
     }
     
     const handleReset = () => {
-        form.reset({ value:'' });
+        form.reset({ value:'', originCurrency:'', destinyCurrency:''});
         setResult(0);
     }
 
@@ -49,10 +48,10 @@ const Page = () => {
                             <CustomSelect form={form} name="originCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda de Origem"/>
                             <CustomSelect form={form} name="destinyCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda Destino"/>
 
-                            <CustomInput form={form} type="text" name="value" label="Valor" description="Digite o valor a ser convertido" mask={maskFloat()}/>
+                            <CustomInput form={form} type="text" name="value" label="Valor" description="Digite o valor a ser convertido" mask={maskNumberInput()}/>
                             <div className="flex flex-col">
                                 <p className="mb-3 text-sm font-bold">Equivale a:</p>
-                                <span className="bg-gray-200 h-10 p-3 text-color-palette1 font-bold text-xl flex items-center rounded-md">R$ 2000</span>
+                                <span className="bg-gray-200 h-10 p-3 text-color-palette1 font-bold text-xl flex items-center rounded-md">{result}</span>
                             </div>
 
                             <Button type="submit" className="w-full">Converter</Button>

@@ -1,4 +1,4 @@
-export const maskFloat = (maxIntDgts?:number) => {
+export const maskNumberInput = (maxIntDgts?:number, currency?:string) => {
     
     return (value:string) => {
 

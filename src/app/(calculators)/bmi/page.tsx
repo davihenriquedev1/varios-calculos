@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button";
 import { CustomInput } from "@/components/CustomInput";
 
-import { maskFloat } from "@/helpers/masks/maskFloat";
+import { maskNumberInput } from "@/helpers/masks/maskNumberInput";
 import { bmiCategories } from "@/helpers/data/bmiData";
 import { useEffect, useState } from "react";
 import { calculateBmi } from "@/utils/calculators/calculateBmi";
@@ -57,8 +57,8 @@ const Page = () => {
                 <div className="flex justify-center flex-1 md:max-w-[200px]">
                     <Form {...form}>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 flex flex-col items-center justify-center max-w-[200px]" >
-                            <CustomInput form={form} type="text" name="height" label="Altura" description="Digite sua altura (ex: 1.80)" mask={maskFloat(1)}/>
-                            <CustomInput form={form} type="text" name="weight" label="Peso" description="Digite seu peso em Kg (78.3)" mask={maskFloat(3)}/>
+                            <CustomInput form={form} type="text" name="height" label="Altura" description="Digite sua altura (ex: 1.80)" mask={maskNumberInput(1)}/>
+                            <CustomInput form={form} type="text" name="weight" label="Peso" description="Digite seu peso em Kg (78.3)" mask={maskNumberInput(3)}/>
                             <Button type="submit" className="w-full">Calcular</Button>
                             <Button type="reset" className="w-full bg-color-palette5 hover:bg-color-palette5 hover:brightness-150" onClick={()=>handleReset()}>Resetar</Button>
                         </form>
