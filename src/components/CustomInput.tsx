@@ -47,6 +47,7 @@ export const CustomInput = ({form, name, label, placeholder, description, type, 
                         type={type}
                         placeholder={placeholder}
                         onChange={handleChange}
+                        className="w-full"
                     />
                 </FormControl>
                 <FormDescription>

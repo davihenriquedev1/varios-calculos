@@ -7,11 +7,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button";
 import { CustomInput } from "@/components/CustomInput";
 import { useEffect, useState } from "react";
-import { maskFloat } from "@/helpers/masks/maskFloat";
 import { CustomSelect } from "@/components/CustomSelect";
+import { maskFloat } from "@/helpers/masks/maskFloat";
 
 const formSchema = z.object({
-    value: z.string().min(1, 'preencha a altura').transform((value) => parseFloat(parseFloat(value).toFixed(2))),
+    value: z.string().min(1, 'preencha o valor').transform((value) => parseFloat(value).toFixed(2)),
+    originCurrency: z.string({required_error:'selecione a moeda'}),
+    destinyCurrency: z.string({required_error:'selecione a moeda'})
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -21,16 +23,18 @@ const Page = () => {
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
-        defaultValues: {value:0}
+        defaultValues: {value:''}
     })
 
     const { handleSubmit } = form;
 
     function onSubmit(values: FormValues) {
-        form.reset({ value:0 });
+        console.log(values.value)
+        
     }
     
     const handleReset = () => {
+        form.reset({ value:'' });
         setResult(0);
     }
 
@@ -39,21 +43,23 @@ const Page = () => {
             <h3 className="text-3xl font-bold text-color-palette6/70 dark:text-color-palette3 mb-8">Conversor de Moedas</h3>
             <div className="flex flex-col md:flex-row gap-12 justify-center mt-10">
 
-                <div className="flex justify-center flex-1 md:max-w-[200px]">
+                <div className="flex justify-center flex-1 md:max-w-[400px]">
                     <Form {...form}>
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 flex flex-col items-center justify-center max-w-[200px]" >
-                            <CustomSelect form={form} name="originCurrency" options={['dolar', 'euro', 'real']} placeholder="moeda origem"/>
-                            
-                            <CustomSelect form={form} name="destinyCurrency" options={['dolar', 'euro', 'real']} placeholder="moeda destino"/>
+                        <form onSubmit={handleSubmit(onSubmit)} className="gap-6 flex flex-col w-full  justify-center xs:grid xs:grid-cols-2" >
+                            <CustomSelect form={form} name="originCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda de Origem"/>
+                            <CustomSelect form={form} name="destinyCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda Destino"/>
 
-                            <CustomInput form={form} type="text" name="value" label="Valor" description="Digite o valor da moeda a ser convertida"/>
+                            <CustomInput form={form} type="text" name="value" label="Valor" description="Digite o valor a ser convertido" mask={maskFloat()}/>
+                            <div className="flex flex-col">
+                                <p className="mb-3 text-sm font-bold">Equivale a:</p>
+                                <span className="bg-gray-200 h-10 p-3 text-color-palette1 font-bold text-xl flex items-center rounded-md">R$ 2000</span>
+                            </div>
 
                             <Button type="submit" className="w-full">Converter</Button>
                             <Button type="reset" className="w-full bg-color-palette5 hover:bg-color-palette5 hover:brightness-150" onClick={()=>handleReset()}>Resetar</Button>
                         </form>
                     </Form>
-                </div>   
-                
+                </div>
             </div>
         </div>
     )
