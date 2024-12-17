@@ -9,6 +9,7 @@ import { CustomInput } from "@/components/CustomInput";
 import { useEffect, useState } from "react";
 import { CustomSelect } from "@/components/CustomSelect";
 import { maskNumberInput } from "@/helpers/masks/maskNumberInput";
+import { useExchangeRate } from "@/hooks/useExchangeRate";
 
 const formSchema = z.object({
     value: z.string().min(1, 'preencha o valor').transform((value) => parseFloat(value).toFixed(2)),
@@ -20,12 +21,13 @@ type FormValues = z.infer<typeof formSchema>
 
 const Page = () => {
     const [result, setResult] = useState(0);
+    const { data, error, isLoading } = useExchangeRate();
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {value:''}
     })
-
+    
     const { handleSubmit } = form;
 
     function onSubmit(values: FormValues) {

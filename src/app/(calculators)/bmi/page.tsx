@@ -11,7 +11,7 @@ import { maskNumberInput } from "@/helpers/masks/maskNumberInput";
 import { bmiCategories } from "@/helpers/data/bmiData";
 import { useEffect, useState } from "react";
 import { calculateBmi } from "@/utils/calculators/calculateBmi";
-import { BmiCategorie } from "@/types/BmiCategorie";
+import { BmiCategory } from "@/types/BmiCategory";
 
 const formSchema = z.object({
     height: z.string().min(1, 'preencha a altura').transform((value) => parseFloat(parseFloat(value).toFixed(2))),
@@ -22,7 +22,7 @@ type FormValues = z.infer<typeof formSchema>
 
 const Page = () => {
     const [result, setResult] = useState(0);
-    const [category, setCategory] = useState<undefined | BmiCategorie>(undefined);
+    const [category, setCategory] = useState<undefined | BmiCategory>(undefined);
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
@@ -40,7 +40,7 @@ const Page = () => {
     }
 
     useEffect(()=> {
-        const currentCategory: BmiCategorie | undefined = bmiCategories.find((cat) => result >= cat.min &&   result <= cat.max);
+        const currentCategory: BmiCategory | undefined = bmiCategories.find((cat) => result >= cat.min &&   result <= cat.max);
         setCategory(currentCategory);
     }, [result]);
     

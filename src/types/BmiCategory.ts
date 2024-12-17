@@ -1,4 +1,4 @@
-export type BmiCategorie = {
+export type BmiCategory = {
     category: string;
     rangeText: string;
     min:number;
