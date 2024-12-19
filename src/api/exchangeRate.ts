@@ -2,12 +2,13 @@ import { ExchangeRate } from "@/types/ExchangeRate";
 import axios from 'axios';
 
 const baseCurrency = 'USD';
-const apikey = 'ejenrv8inrv';
+const API_KEY = 'ejenrv8inrv';
+
 const req = axios.create({
-    baseURL:`https://jsonplaceholder/${apikey}/latest`
+    baseURL:`https://jsonplaceholder/${API_KEY}/latest`
 })
 
 export const getExchangeRate = async (): Promise<ExchangeRate> => {
-    const result = await req.get(`/${baseCurrency}`);
-    return result.data;
+    const response = await req.get(`/${baseCurrency}`);
+    return response.data;
 }
