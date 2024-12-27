@@ -15,7 +15,7 @@ export const useExchangeRate = () => {
         // Se o mercado estiver fechado, retornar dados do cache
         throw new Error('Market is closed');
     }
-
+    
     return useQuery({
         queryKey: ['exchange_rate'],
         queryFn: queryFn,

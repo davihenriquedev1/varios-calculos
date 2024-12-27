@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button";
-import { CustomInput } from "@/components/CustomInput";
-import { useEffect, useState } from "react";
-import { CustomSelect } from "@/components/CustomSelect";
+import { CustomInput } from "@/components/partials/CustomInput";
+import { useState } from "react";
+import { CustomSelect } from "@/components/partials/CustomSelect";
 import { maskNumberInput } from "@/helpers/masks/maskNumberInput";
 import { useExchangeRate } from "@/hooks/useExchangeRate";
 
@@ -65,4 +65,22 @@ const Page = () => {
         </div>
     )
 }
+{/* 
+// getServerSideProps para fazer a requisição no servidor
+const getServerSideProps: GetServerSideProps = async () => {
+ 
+    const queryClient = new QueryClient();
+  
+    // Faz a requisição no servidor e preenche o cache
+    await queryClient.prefetchQuery(['exchange_rate'], getExchangeRate);
+  
+    // Desidrata o estado do queryClient e envia para o cliente
+    return {
+      props: {
+        initialData: dehydrate(queryClient),
+      },
+    };
+  };
+*/}
+
 export default Page;

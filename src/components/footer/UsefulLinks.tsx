@@ -1,6 +1,6 @@
 "use client"
 
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/partials/NavLink";
 
 export const UsefulLinks = () => {
     return (
