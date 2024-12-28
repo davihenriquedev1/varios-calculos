@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -9,7 +9,31 @@ import { CustomInput } from "@/components/partials/CustomInput";
 import { useState } from "react";
 import { CustomSelect } from "@/components/partials/CustomSelect";
 import { maskNumberInput } from "@/helpers/masks/maskNumberInput";
-import { useExchangeRate } from "@/hooks/useExchangeRate";
+import { fetchExchangeRate, useExchangeRate } from "@/hooks/useExchangeRate";
+import { GetServerSideProps } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { ExchangeRate } from "@/types/ExchangeRate";
+
+// getServerSideProps para fazer a requisição no servidor
+const getServerSideProps: GetServerSideProps = async () => {
+ 
+    const queryClient = new QueryClient();
+  
+    // Faz a requisição no servidor e preenche o cache
+    await queryClient.prefetchQuery({
+        queryKey:['exchange_rate'],
+        queryFn: fetchExchangeRate
+    });
+  
+    // Desidrata o estado do queryClient e envia para o cliente
+    return {
+        props: {
+            initialData: dehydrate(queryClient),
+        },
+    };
+};
+
+type Props = {initialData:ExchangeRate}
 
 const formSchema = z.object({
     value: z.string().min(1, 'preencha o valor').transform((value) => parseFloat(value).toFixed(2)),
@@ -19,9 +43,9 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-const Page = () => {
+const Page = ({initialData}:Props) => {
     const [result, setResult] = useState(0);
-    const { data, error, isLoading } = useExchangeRate();
+    const { data, error, isLoading } = useExchangeRate(initialData);
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
@@ -40,47 +64,31 @@ const Page = () => {
     }
 
     return (
-        <div className="p-8">
-            <h3 className="text-3xl font-bold text-color-palette6/70 dark:text-color-palette3 mb-8">Conversor de Moedas</h3>
-            <div className="flex flex-col md:flex-row gap-12 justify-center mt-10">
+            <div className="p-8">
+                <h3 className="text-3xl font-bold text-color-palette6/70 dark:text-color-palette3 mb-8">Conversor de Moedas</h3>
+                <div className="flex flex-col md:flex-row gap-12 justify-center mt-10">
 
-                <div className="flex justify-center flex-1 md:max-w-[400px]">
-                    <Form {...form}>
-                        <form onSubmit={handleSubmit(onSubmit)} className="gap-6 flex flex-col w-full  justify-center xs:grid xs:grid-cols-2" >
-                            <CustomSelect form={form} name="originCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda de Origem"/>
-                            <CustomSelect form={form} name="destinyCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda Destino"/>
+                    <div className="flex justify-center flex-1 md:max-w-[400px]">
+                        <Form {...form}>
+                            <form onSubmit={handleSubmit(onSubmit)} className="gap-6 flex flex-col w-full  justify-center xs:grid xs:grid-cols-2" >
+                                <CustomSelect form={form} name="originCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda de Origem"/>
+                                <CustomSelect form={form} name="destinyCurrency" options={['dolar', 'euro', 'real']} placeholder="selecione" label="Moeda Destino"/>
 
-                            <CustomInput form={form} type="text" name="value" label="Valor" description="Digite o valor a ser convertido" mask={maskNumberInput()}/>
-                            <div className="flex flex-col">
-                                <p className="mb-3 text-sm font-bold">Equivale a:</p>
-                                <span className="bg-gray-200 h-10 p-3 text-color-palette1 font-bold text-xl flex items-center rounded-md">{result}</span>
-                            </div>
+                                <CustomInput form={form} type="text" name="value" label="Valor" description="Digite o valor a ser convertido" mask={maskNumberInput()}/>
+                                <div className="flex flex-col">
+                                    <p className="mb-3 text-sm font-bold">Equivale a:</p>
+                                    <span className="bg-gray-200 h-10 p-3 text-color-palette1 font-bold text-xl flex items-center rounded-md">{result}</span>
+                                </div>
 
-                            <Button type="submit" className="w-full">Converter</Button>
-                            <Button type="reset" className="w-full bg-color-palette5 hover:bg-color-palette5 hover:brightness-150" onClick={()=>handleReset()}>Resetar</Button>
-                        </form>
-                    </Form>
+                                <Button type="submit" className="w-full">Converter</Button>
+                                <Button type="reset" className="w-full bg-color-palette5 hover:bg-color-palette5 hover:brightness-150" onClick={()=>handleReset()}>Resetar</Button>
+                            </form>
+                        </Form>
+                    </div>
                 </div>
             </div>
-        </div>
+        
     )
 }
-{/* 
-// getServerSideProps para fazer a requisição no servidor
-const getServerSideProps: GetServerSideProps = async () => {
- 
-    const queryClient = new QueryClient();
-  
-    // Faz a requisição no servidor e preenche o cache
-    await queryClient.prefetchQuery(['exchange_rate'], getExchangeRate);
-  
-    // Desidrata o estado do queryClient e envia para o cliente
-    return {
-      props: {
-        initialData: dehydrate(queryClient),
-      },
-    };
-  };
-*/}
 
 export default Page;
