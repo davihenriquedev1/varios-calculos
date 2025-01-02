@@ -27,17 +27,6 @@ const NavMenu = () => {
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <Link href="/donate" legacyBehavior passHref>
-                        <NavigationMenuLink
-                            className={navigationMenuLinkStyle({
-                            active: pathname === "/donate",
-                            })}
-                        > 
-                            Donate
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
                     <Link href="/about" legacyBehavior passHref>
                         <NavigationMenuLink
                             className={navigationMenuLinkStyle({

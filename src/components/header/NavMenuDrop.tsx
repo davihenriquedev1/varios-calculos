@@ -1,3 +1,5 @@
+"use client";
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -23,9 +25,6 @@ const NavMenuDrop = () => {
             <DropdownMenuContent>
                 <DropdownMenuItem className={dropDownMenuLinkStyle({active: pathname === "/",})}>
                     <Link href="/" legacyBehavior passHref>Home</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className={dropDownMenuLinkStyle({active: pathname === "/donate",})}>
-                    <Link href="/donate" legacyBehavior passHref>Donate</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className={dropDownMenuLinkStyle({active: pathname === "/about",})}>
                     <Link href="/about" passHref>About us</Link>

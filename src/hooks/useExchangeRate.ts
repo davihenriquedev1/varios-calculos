@@ -8,7 +8,7 @@ const isMarketOpen = ()=> {
     return hours >= 12 && hours < 21 // 9h às 18h no UTC-3 (Brasil)
 }
 
-export const fetchExchangeRate: QueryFunction<ExchangeRate> = async (context: QueryFunctionContext) => {
+export const fetchExchangeRate: QueryFunction<ExchangeRate> = async () => {
     if (isMarketOpen()) {
       return getExchangeRate();
     }

@@ -1,4 +1,4 @@
-import { Frame } from "@/components/home/Frame";
+import { Frame } from "@/components/partials/Frame";
 
 const Home = () => {
 	return (

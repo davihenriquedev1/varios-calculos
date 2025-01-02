@@ -35,7 +35,7 @@ const CurrencyConversion = ({ initialData }: Props) => {
     function onSubmit(values: FormValues) {
         console.log(values);
     }
-
+    
     const handleReset = () => {
         form.reset({ value: '', originCurrency: '', destinyCurrency: '' });
         setResult(0);
